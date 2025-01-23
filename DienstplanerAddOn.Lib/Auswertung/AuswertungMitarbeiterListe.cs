@@ -105,17 +105,5 @@ namespace DienstplanerAddOn.Lib
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

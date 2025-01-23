@@ -10,7 +10,7 @@ using System.Web;
 using DienstplanerAddOn.Lib;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
-using Button = System.Windows.Forms.Button;
+
 
 
 namespace DienstplanerAddOn
@@ -21,7 +21,7 @@ namespace DienstplanerAddOn
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-            this.btnLoadMitarbeiter.Enabled = false;
+           btnLoadMitarbeiter.Enabled = false;
         }
 
 
@@ -40,7 +40,7 @@ namespace DienstplanerAddOn
             if (Button != null)
             {
                 Button.Enabled = false;
-                this.btnLoadMitarbeiter.Enabled = true;
+                btnLoadMitarbeiter.Enabled = true;
             }
 
         }

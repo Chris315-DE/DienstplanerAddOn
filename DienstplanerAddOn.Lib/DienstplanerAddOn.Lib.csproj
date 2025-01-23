@@ -57,12 +57,10 @@
     <Compile Include="Auswertung\AuswertungMitarbeiterListe.cs" />
     <Compile Include="HelperClass\Cells.cs" />
     <Compile Include="HelperClass\ExelTabelle.cs" />
-    <Compile Include="ObsoletCreateMitarbeiterListe.cs" />
-    <Compile Include="CreateSetupWorkSheet.cs" />
     <Compile Include="KeyCellsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup\MitarbeiterListe.cs" />
-    <Compile Include="Verwaltung\MitarbeiterTyp.cs" />
+    <Compile Include="Models\MitarbeiterTyp.cs" />
     <Compile Include="WorksheetBearbeitung.cs" />
   </ItemGroup>
   <ItemGroup>
