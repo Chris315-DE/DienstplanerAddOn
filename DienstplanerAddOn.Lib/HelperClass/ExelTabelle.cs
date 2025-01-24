@@ -14,18 +14,18 @@ namespace DienstplanerAddOn.Lib.HelperClass
         public List<string> Headders;
         public int Cols;
 
-        public int[] Rows;
-        public int[] Ccols;
+        public int[] Rows { get; set; }
+   
 
 
 
 
-        public ExelTabelle(string name, List<string> Headders, int[] RowLenght, int[] ColHeight)
+        public ExelTabelle(string name, List<string> Headders, int[] RowLenght, int cols)
         {
             Name = name;
             Felder = new List<Cells>();
-            Cols = ColHeight.Length;
-            Ccols = ColHeight;
+            Cols = cols;
+
             Rows = RowLenght;
             this.Headders = Headders;
 

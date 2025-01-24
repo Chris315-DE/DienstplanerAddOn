@@ -1,4 +1,5 @@
 ﻿using DienstplanerAddOn.Lib.HelperClass;
+using DienstplanerAddOn.Lib.Verwaltung;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,9 @@ namespace DienstplanerAddOn.Lib.Setup
         public MitarbeiterListe(Worksheet worksheet) : base(worksheet)
         {
             SetDic(ref KeyCellsManager.MitarbeiterKeyCells);
-            tabelle = new ExelTabelle("Mitarbeiter", new List<string> { "MitarbeiterTyp", "Benötigt pro Schicht", "Benötig pro Tag", "Max Schichten am Stück", "Frei nach Block", "Max Schichten pro Monat", "Min Schichten pro Monat" }, new int[] { 3, 2, 2, 2, 2, 2, 2 }, new int[]{1,1,1,1,1,1,1,1 });
+            tabelle = new ExelTabelle("Mitarbeiter", new List<string> { "MitarbeiterTyp", "Benötigt pro Schicht", "Benötig pro Tag", "Max Schichten am Stück", "Frei nach Block", "Max Schichten pro Monat", "Min Schichten pro Monat" }, new int[] { 3, 2, 2, 2, 2, 2, 2 }, 15);
             ws = worksheet;
-            CreateHeader();
+            CreateHeader("Setup MitarbeiterListe", "Bitte geben sie hier die verschiedenen MitarbeiterTypen die für den Dienstplan Benötigt werden");
             CreateList();
             CreateFillerText();
 
@@ -31,21 +32,21 @@ namespace DienstplanerAddOn.Lib.Setup
         }
 
 
-        public void CreateHeader()
+        public void CreateHeader(string headertext,string descript)
         {
-            var EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl, Buchstabe + 14, 2)];
+            var EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl, Buchstabe + 14, Zahl+1)];
             EditCell.Merge();
-            EditCell.Value = "Setup MitarbeiterListe";
+            EditCell.Value = headertext;
             EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
             EditCell.Cells.Font.Bold = true;
             EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl + 2, Buchstabe + 14, Zahl + 4)];
             EditCell.Merge();
-            EditCell.Value = "Bitte geben sie hier die verschiedenen MitarbeiterTypen die für den Dienstplan Benötigt werden";
+            EditCell.Value = descript;
             EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
             EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
             EditCell.Cells.Font.Bold = true;
-            Zahl = 6;
+            Zahl +=6;
 
         }
 
@@ -132,8 +133,41 @@ namespace DienstplanerAddOn.Lib.Setup
 
         }
 
+        internal void CreateMitarbeiterTabelle(Worksheet ws,List<MitarbeiterTyp> mitarbeiterTyps)
+        {
+            Zahl += 1;
+            this.ws = ws;
+
+          
+            CreateHeader("MitarbeiterListe", setBeschreibung(mitarbeiterTyps));
+            FormulaTabelle tab2 = new FormulaTabelle("Mitarbeiter",new List<string>() { "Name","Mitarbeiter Typ","Validation"}, new int[] { 2, 2,2 }, 25,
+                "=IF(OR(Param0=\"Hundeführer\",Param0=\"Consoler\",Param0=\"EKS\"),\"Gültig\",\"Ungültig\")",FormulaPosition.Right,Buchstabe,Zahl,new List<int>() { 2});
+            Zahl = CreateTabelle(ws, Buchstabe, Zahl, Color.LightGray, KeyCellsManager.MitarbeiterKeyCells, tab2);
 
 
+        }
+
+
+
+
+        private string setBeschreibung(List<MitarbeiterTyp> maList)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Mitarbeiter Typen: ");
+            foreach (var ma in maList)
+            {
+                if(ma == maList.Last())
+                {
+                    sb.Append(ma.Name);
+                }
+                else
+                {
+                    sb.Append(ma.Name).Append(", ");
+
+                }
+            }
+            return sb.ToString();
+        }
 
 
         #region Internal

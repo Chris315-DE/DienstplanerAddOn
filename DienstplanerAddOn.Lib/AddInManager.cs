@@ -55,7 +55,14 @@ namespace DienstplanerAddOn.Lib
 
 
         }
+        public void ErstelleMitarbeiterTabelle(Worksheet ws)
+        {
+            MitarbeiterSheet = ws;
+            mitarbeiterListe.CreateMitarbeiterTabelle(ws,AuswertungMA.MitarbeiterTypen);
 
+
+
+        }
 
 
 

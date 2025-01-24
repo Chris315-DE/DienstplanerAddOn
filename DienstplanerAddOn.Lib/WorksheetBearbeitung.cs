@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -113,7 +114,7 @@ namespace DienstplanerAddOn.Lib
             return ws.Range[ConvertToExcelCell(buchstabe, zahl)].Value;
         }
 
-        internal int CreateTabelle(Worksheet ws, int startrow, int startcol,Color color,Dictionary<string,Range> keyvalue,ExelTabelle tabelle)
+        internal int CreateTabelle(Worksheet ws, int startrow, int startcol, Color color, Dictionary<string, Range> keyvalue, ExelTabelle tabelle)
         {
             if (ws == null) return 0;
             int buchstabe = startrow;
@@ -121,17 +122,18 @@ namespace DienstplanerAddOn.Lib
             int counter = 0;
             int row = 0;
             int col = 0;
-            int debugrounds =0;
+            int debugrounds = 0;
             Range r;
 
-            foreach (var cCol in tabelle.Ccols)
+
+            for (int i = 0; i <= tabelle.Cols; i++)
             {
 
 
                 foreach (var rrow in tabelle.Rows)
                 {
 
-                    r = ws.Range[ConvertToExcelCell(buchstabe, zahl, buchstabe + rrow - 1, zahl+cCol-1)];
+                    r = ws.Range[ConvertToExcelCell(buchstabe, zahl, buchstabe + rrow - 1, zahl + 1 - 1)];
                     r.Merge();
 
                     if (counter < tabelle.Headders.Count)
@@ -149,21 +151,43 @@ namespace DienstplanerAddOn.Lib
                         ErstelleKeyDicEintrag($"{tabelle.Name}:{col}{row}", r);
                         tabelle.AddCell(r, tabelle.Headders[row]);
 
+                        if(tabelle is FormulaTabelle)
+                        {
+                            var tab = (FormulaTabelle)tabelle;
+                            if(tab.Position == FormulaPosition.Right)
+                            {
+                                if (tab.Headders[row] == tab.Headders.Last())
+                                {
+                                    r.Formula = tab.FormelValues[col];
+                                }
+
+                            }
+
+                        }
+
+
+
                     }
 
                     buchstabe += rrow;
                     row++;
 
                 }
-                zahl += cCol;
+                zahl += 1;
                 buchstabe = startrow;
                 col++;
                 row = 0;
                 debugrounds++;
             }
 
-       
+
+
+
+
             return zahl;
         }
+
+
+
     }
 }

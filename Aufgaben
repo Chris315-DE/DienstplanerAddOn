@@ -1,0 +1,6 @@
+MitarbeiterListe
+Mitarbeiter Typen : X, X1, X2
+
+Name | Mitarbeiter Typ|  
+
+=WENN(ODER(C31="Hundeführer";C31="Consoler";C31="EKS");"VALID";"INVALID")

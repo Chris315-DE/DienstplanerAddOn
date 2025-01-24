@@ -55,7 +55,7 @@ namespace DienstplanerAddOn
             }
             else
             {
-
+                Manager.ErstelleMitarbeiterTabelle(Globals.ThisAddIn.Application.ActiveWorkbook.Sheets["MitarbeiterListe"]);
                 MessageBox.Show(Manager.AuswertungMA.MitarbeiterTypen[0].ToString());
             }
 
