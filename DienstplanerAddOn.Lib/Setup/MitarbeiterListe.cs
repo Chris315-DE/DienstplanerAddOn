@@ -137,11 +137,13 @@ namespace DienstplanerAddOn.Lib.Setup
         {
             Zahl += 1;
             this.ws = ws;
+            List<string> names = new List<string>();
 
+            mitarbeiterTyps.ForEach(t => { names.Add(t.Name); });
           
             CreateHeader("MitarbeiterListe", setBeschreibung(mitarbeiterTyps));
             FormulaTabelle tab2 = new FormulaTabelle("Mitarbeiter",new List<string>() { "Name","Mitarbeiter Typ","Validation"}, new int[] { 2, 2,2 }, 25,
-                "=IF(OR(Param0=\"Hundeführer\",Param0=\"Consoler\",Param0=\"EKS\"),\"Gültig\",\"Ungültig\")",FormulaPosition.Right,Buchstabe,Zahl,new List<int>() { 2});
+               createFormula(names,"=IF(OR(PARAM),\"Gültig\",\"Ungültig\")") ,FormulaPosition.Right,Buchstabe,Zahl,new List<int>() { 2});
             Zahl = CreateTabelle(ws, Buchstabe, Zahl, Color.LightGray, KeyCellsManager.MitarbeiterKeyCells, tab2);
 
 

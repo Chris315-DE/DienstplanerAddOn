@@ -57,6 +57,7 @@
     <Compile Include="Auswertung\AuswertungMitarbeiterListe.cs" />
     <Compile Include="HelperClass\Cells.cs" />
     <Compile Include="HelperClass\ExelTabelle.cs" />
+    <Compile Include="HelperClass\Enums.cs" />
     <Compile Include="HelperClass\FormulaTabelle.cs" />
     <Compile Include="KeyCellsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

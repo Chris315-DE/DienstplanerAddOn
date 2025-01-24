@@ -72,8 +72,5 @@ namespace DienstplanerAddOn.Lib.HelperClass
 
 
 
-    public enum FormulaPosition
-    {
-        Right, Bottom
-    }
+  
 }

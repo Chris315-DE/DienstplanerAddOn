@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DienstplanerAddOn.Lib
@@ -187,7 +188,27 @@ namespace DienstplanerAddOn.Lib
             return zahl;
         }
 
+        internal string createFormula(List<string> namelist, string baseformula)
+        {
+            StringBuilder sb = new StringBuilder();
 
+            //="IF(OR(PARAM),\"Gültig\",\"Ungültig\")"
+
+            foreach (var t in namelist)
+            {
+                sb.Append($"Param0=\"{t}\"");
+                if (t != namelist.Last())
+                {
+                    sb.Append(",");
+                }
+            }
+
+
+            var back = baseformula.Replace("PARAM", sb.ToString());
+
+            return back;
+
+        }
 
     }
 }
