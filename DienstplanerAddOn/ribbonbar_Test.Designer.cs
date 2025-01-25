@@ -37,45 +37,61 @@
             this.tab1 = this.Factory.CreateRibbonTab();
             this.Setup = this.Factory.CreateRibbonGroup();
             this.btnTest = this.Factory.CreateRibbonButton();
-            this.button1 = this.Factory.CreateRibbonButton();
             this.btnLoadMitarbeiter = this.Factory.CreateRibbonButton();
+            this.button1 = this.Factory.CreateRibbonButton();
+            this.group1 = this.Factory.CreateRibbonGroup();
+            this.btn_DienstplanSetup = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.Setup.SuspendLayout();
+            this.group1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab1
             // 
             this.tab1.ControlId.ControlIdType = Microsoft.Office.Tools.Ribbon.RibbonControlIdType.Office;
             this.tab1.Groups.Add(this.Setup);
+            this.tab1.Groups.Add(this.group1);
             this.tab1.Label = "DienstplanAddOn";
             this.tab1.Name = "tab1";
             // 
             // Setup
             // 
             this.Setup.Items.Add(this.btnTest);
-            this.Setup.Items.Add(this.button1);
             this.Setup.Items.Add(this.btnLoadMitarbeiter);
-            this.Setup.Label = "Setup";
+            this.Setup.Items.Add(this.button1);
+            this.Setup.Label = "Mitarbeiter";
             this.Setup.Name = "Setup";
             // 
             // btnTest
             // 
-            this.btnTest.Label = "Setup Teil 1";
+            this.btnTest.Label = "Mitarbeiter Setup 1";
             this.btnTest.Name = "btnTest";
             this.btnTest.ShowImage = true;
             this.btnTest.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button2_Click);
+            // 
+            // btnLoadMitarbeiter
+            // 
+            this.btnLoadMitarbeiter.Label = "Mitarbeiter Setup 2";
+            this.btnLoadMitarbeiter.Name = "btnLoadMitarbeiter";
+            this.btnLoadMitarbeiter.ShowImage = true;
+            this.btnLoadMitarbeiter.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLoadMitarbeiter_Click);
             // 
             // button1
             // 
             this.button1.Label = "";
             this.button1.Name = "button1";
             // 
-            // btnLoadMitarbeiter
+            // group1
             // 
-            this.btnLoadMitarbeiter.Label = "Setup Teil 2";
-            this.btnLoadMitarbeiter.Name = "btnLoadMitarbeiter";
-            this.btnLoadMitarbeiter.ShowImage = true;
-            this.btnLoadMitarbeiter.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btnLoadMitarbeiter_Click);
+            this.group1.Items.Add(this.btn_DienstplanSetup);
+            this.group1.Label = "Dienstplan";
+            this.group1.Name = "group1";
+            // 
+            // btn_DienstplanSetup
+            // 
+            this.btn_DienstplanSetup.Label = "Dienstplan Setup";
+            this.btn_DienstplanSetup.Name = "btn_DienstplanSetup";
+            this.btn_DienstplanSetup.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_DienstplanSetup_Click);
             // 
             // Ribbon1
             // 
@@ -87,6 +103,8 @@
             this.tab1.PerformLayout();
             this.Setup.ResumeLayout(false);
             this.Setup.PerformLayout();
+            this.group1.ResumeLayout(false);
+            this.group1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -97,6 +115,8 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnTest;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btnLoadMitarbeiter;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_DienstplanSetup;
     }
 
     partial class ThisRibbonCollection

@@ -14,29 +14,29 @@ namespace DienstplanerAddOn.Lib
         Excel.Workbook aWb;
         public MitarbeiterListe mitarbeiterListe { get; set; }
         public Worksheet MitarbeiterSheet { get; set; }
-
+        public Worksheet DienstplanSheet { get; set; }
         public AuswertungMitarbeiterListe AuswertungMA;
 
 
         public AddInManager(Workbook Wb)
         {
             aWb = Wb;
-            SetupMitarbeiterListe(Wb);
-           
-          
+         
+
+
         }
 
 
-        private AddInManager SetupMitarbeiterListe(Workbook Wb)
+        public AddInManager SetupMitarbeiterListe(Workbook Wb)
         {
             aWb.Application.Worksheets.Add();
             Worksheet ws = aWb.Application.ActiveSheet as Worksheet;
-            
+
             ws.Name = "MitarbeiterListe";
             MitarbeiterSheet = ws;
             mitarbeiterListe = new MitarbeiterListe(ws);
 
-           
+
 
 
             return this;
@@ -47,7 +47,7 @@ namespace DienstplanerAddOn.Lib
         public bool ErstelleMitarbeiterModel()
         {
             AuswertungMA = new AuswertungMitarbeiterListe(MitarbeiterSheet, mitarbeiterListe.tabelle);
-            if (AuswertungMA.MitarbeiterTypen.Count > 0) 
+            if (AuswertungMA.MitarbeiterTypen.Count > 0)
             {
                 return true;
             }
@@ -58,14 +58,21 @@ namespace DienstplanerAddOn.Lib
         public void ErstelleMitarbeiterTabelle(Worksheet ws)
         {
             MitarbeiterSheet = ws;
-            mitarbeiterListe.CreateMitarbeiterTabelle(ws,AuswertungMA.MitarbeiterTypen);
+            mitarbeiterListe.CreateMitarbeiterTabelle(ws, AuswertungMA.MitarbeiterTypen);
 
 
 
         }
 
+        public void ErstelleDienstplanSetup()
+        {
+            Worksheet ws = aWb.Application.ActiveSheet as Worksheet;
+            ws = aWb.Application.Worksheets.Add();
+            ws.Name = "DienstplanSetup";
+            DienstplanSheet = ws;
 
-
+            DienstplanSetup dienstplanSetup = new DienstplanSetup(DienstplanSheet);
+        }
 
 
 

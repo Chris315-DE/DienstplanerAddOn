@@ -16,6 +16,9 @@ namespace DienstplanerAddOn.Lib
     {
         Worksheet ws;
 
+        internal int Buchstabe = 1;
+        internal int Zahl = 1;
+
         Dictionary<string, Range> Keys;
 
         public WorksheetBearbeitung(Worksheet worksheet)
@@ -92,7 +95,23 @@ namespace DienstplanerAddOn.Lib
             Keys = dic;
         }
 
+        public void CreateHeader(string headertext, string descript)
+        {
+            var EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl, Buchstabe + 14, Zahl + 1)];
+            EditCell.Merge();
+            EditCell.Value = headertext;
+            EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
+            EditCell.Cells.Font.Bold = true;
+            EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl + 2, Buchstabe + 14, Zahl + 4)];
+            EditCell.Merge();
+            EditCell.Value = descript;
+            EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+            EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
+            EditCell.Cells.Font.Bold = true;
+            Zahl += 6;
 
+        }
 
         internal abstract void ErstelleKeyDicEintrag(string key, Range value);
 

@@ -15,8 +15,7 @@ namespace DienstplanerAddOn.Lib.Setup
     {
         Worksheet ws;
 
-        private int Buchstabe = 1;
-        private int Zahl = 1;
+      
         internal  ExelTabelle tabelle;
 
         public MitarbeiterListe(Worksheet worksheet) : base(worksheet)
@@ -32,23 +31,7 @@ namespace DienstplanerAddOn.Lib.Setup
         }
 
 
-        public void CreateHeader(string headertext,string descript)
-        {
-            var EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl, Buchstabe + 14, Zahl+1)];
-            EditCell.Merge();
-            EditCell.Value = headertext;
-            EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
-            EditCell.Cells.Font.Bold = true;
-            EditCell = ws.Range[ConvertToExcelCell(Buchstabe, Zahl + 2, Buchstabe + 14, Zahl + 4)];
-            EditCell.Merge();
-            EditCell.Value = descript;
-            EditCell.Cells.HorizontalAlignment = XlHAlign.xlHAlignCenter;
-            EditCell.Cells.VerticalAlignment = XlVAlign.xlVAlignCenter;
-            EditCell.Cells.Font.Bold = true;
-            Zahl +=6;
-
-        }
+      
 
 
         public void CreateList()

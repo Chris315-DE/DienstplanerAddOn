@@ -10,6 +10,7 @@ using System.Web;
 using DienstplanerAddOn.Lib;
 using Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
+using DienstplanerAddOn.Lib.Setup;
 
 
 
@@ -18,10 +19,13 @@ namespace DienstplanerAddOn
     public partial class Ribbon1
     {
         AddInManager Manager { get; set; }
-
+        Workbook wb { get; set; }
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
-           btnLoadMitarbeiter.Enabled = false;
+            KeyCellsManager manager = new KeyCellsManager();
+            wb = Globals.ThisAddIn.GetActivWB();
+            btnLoadMitarbeiter.Enabled = false;
+            Manager = new AddInManager(wb);
         }
 
 
@@ -29,20 +33,13 @@ namespace DienstplanerAddOn
         private void button2_Click(object sender, RibbonControlEventArgs e)
         {
 
-
-
-            Excel.Worksheet activesheet = Globals.ThisAddIn.Application.ActiveSheet;
-            KeyCellsManager manager = new KeyCellsManager();
-            Workbook wb = Globals.ThisAddIn.GetActivWB();
-            Manager = new AddInManager(wb);
-
+            Manager.SetupMitarbeiterListe(wb);
             var Button = (RibbonButton)sender;
             if (Button != null)
             {
                 Button.Enabled = false;
                 btnLoadMitarbeiter.Enabled = true;
             }
-
         }
 
         private void btnLoadMitarbeiter_Click(object sender, RibbonControlEventArgs e)
@@ -59,6 +56,23 @@ namespace DienstplanerAddOn
                 MessageBox.Show(Manager.AuswertungMA.MitarbeiterTypen[0].ToString());
             }
 
+
+        }
+        private void btn_DienstplanSetup_Click(object sender, RibbonControlEventArgs e)
+        {
+
+            Manager.ErstelleDienstplanSetup();
+            var Button = (RibbonButton)sender;
+            if (Button != null) 
+            {
+                Button.Enabled = false;
+            }
         }
     }
 }
+
+
+
+
+
+

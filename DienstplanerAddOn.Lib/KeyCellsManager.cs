@@ -10,16 +10,18 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DienstplanerAddOn.Lib
 {
-    public  class KeyCellsManager
+    public class KeyCellsManager
     {
         public static Dictionary<string, Range> KeyCells;
 
         public static Dictionary<string, Range> MitarbeiterKeyCells;
+        public static Dictionary<string, Range> DiestplanKeyCells;
 
-        public  KeyCellsManager()
+        public KeyCellsManager()
         {
             KeyCells = new Dictionary<string, Range>();
             MitarbeiterKeyCells = new Dictionary<string, Range>();
+            DiestplanKeyCells = new Dictionary<string, Range>();
         }
     }
 }
